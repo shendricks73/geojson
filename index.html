@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Expires" CONTENT="-1">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>GeoJSON - Viewer</title>
+    <style>
+      html, body {
+        height: 700px;
+        padding: 0;
+        margin: 0;
+        }
+      #map {
+       height: 640px;
+       width: 640px;
+       overflow: hidden;
+       float: left;
+       border: thin solid #333;
+       }
+    </style>
+  </head>
+  <body>
+    <table border=1>
+      <tr>
+        <th colspan=2><big>geoJSON-Viewer</big></th>
+        <th> </th>
+      </tr>
+      <tr>
+        <td> <div id="map"></div></td>
+      </tr>
+    </table>
+    <script>
+
+  var map;
+  const url = 'https://raw.githubusercontent.com/hastings-jthco/geojson-viewer/refs/heads/main/NevaONLY.geojson';  // <-- Change this, as approp
+  
+  function initMap() { alert("at initMap")
+    map = new google.maps.Map(document.getElementById('map'), {
+    center: new google.maps.LatLng(37, -117),
+    zoom: 6, zoomControl: true,
+    streetViewControl: false,
+    mapTypeId: 'roadmap'
+    });
+    loadGeoJsonFile(url)
+  }
+      
+  async function loadGeoJsonFile(url) {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+  // Presume the file is geoJSON:
+      const data = await response.json();
+  //console.log(data.length)
+  //console.log("JSON data:", data)
+      map.data.addGeoJson(data); 
+    } catch (e) {
+      alert("Error processing GeoJSON file!");
+    }
+  }
+      
+  function loadGeoJsonString(geoString) {
+    try {
+      const geojson = JSON.parse(geoString);
+      map.data.addGeoJson(geojson);
+    } catch (e) {
+      alert("Not valid GeoJSON data!");
+    }
+  }
+    </script>
+
+    <script async
+     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmrLN2z0y1M2Dg8hvhfBckywh_kDXQC_k&callback=initMap">
+    </script>
+
+  </body>
+</html>
