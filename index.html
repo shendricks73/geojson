@@ -36,10 +36,10 @@
   var map;
  const url = 'https://raw.githubusercontent.com/shendricks73/geojson/refs/heads/main/Tracts-in-TFHD.geojson';  // <-- Change this, as approp
  // const url = 'https://drive.google.com/file/d/19Mni4YIRtNhmESGEYkeG9bjK7o4xhCdt/view?usp=drive_link' 
-  function initMap() { alert("at initMap")
+  function initMap() { //alert("at initMap")
     map = new google.maps.Map(document.getElementById('map'), {
-    center: new google.maps.LatLng(37, -117),
-    zoom: 6, zoomControl: true,
+    center: new google.maps.LatLng(37, -120),
+    zoom: 10, zoomControl: true,
     streetViewControl: false,
     mapTypeId: 'roadmap'
     });
